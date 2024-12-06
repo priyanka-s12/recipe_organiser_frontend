@@ -6,7 +6,7 @@ const RecipeDetails = () => {
   const { recipeId } = useParams();
   //   console.log(recipeId);
 
-  const apiUrl = `http://localhost:3000/recipes`;
+  const apiUrl = `https://recipe-organiser-backend-xi.vercel.app/recipes`;
   const { data, loading, error } = useFetch(apiUrl);
   //   console.log(data);
 
