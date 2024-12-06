@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 const Recipes = () => {
   const [query, setQuery] = useState('');
-  const apiUrl = 'http://localhost:3000/recipes';
+  //   const apiUrl = 'http://localhost:3000/recipes';
+  const apiUrl = 'https://recipe-organiser-backend-xi.vercel.app/recipes';
   const { data, loading, error } = useFetch(apiUrl);
   //   console.log(data);
 
@@ -15,9 +16,12 @@ const Recipes = () => {
 
   const deleteHandler = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/recipes/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://recipe-organiser-backend-xi.vercel.app/recipes/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       const data = response.json();
       if (data) {

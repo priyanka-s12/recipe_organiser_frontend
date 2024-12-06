@@ -28,13 +28,16 @@ const AddRecipe = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/recipes', {
-        method: 'POST',
-        body: JSON.stringify(newData),
-        headers: {
-          'content-type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'https://recipe-organiser-backend-xi.vercel.app/recipes',
+        {
+          method: 'POST',
+          body: JSON.stringify(newData),
+          headers: {
+            'content-type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         setName('');
