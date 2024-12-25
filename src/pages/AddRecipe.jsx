@@ -110,10 +110,11 @@ const AddRecipe = () => {
               <br />
               <textarea
                 id="ingredients"
-                rows="3"
-                cols="30"
+                rows="5"
+                cols="50"
                 value={ingredients}
                 onChange={(event) => setIngredients(event.target.value)}
+                placeholder="1 cup mixed vegetables (cabbage, carrots, ginger, bell peppers, onions), Salt to taste, 2 tbsp soy sauce, 1 tbsp chili sauce, 1 tbsp ketchup, Oil for frying"
                 required
               ></textarea>
             </div>
@@ -122,10 +123,11 @@ const AddRecipe = () => {
               <br />
               <textarea
                 id="instructions"
-                rows="3"
-                cols="30"
+                rows="7"
+                cols="50"
                 value={instructions}
                 onChange={(event) => setInstructions(event.target.value)}
+                placeholder="Mix vegetables, chilli, ginger, cauliflower, flour, water and salt. Shape into balls. Fry vegetable balls in oil until golden brown. Set aside. Mix a soy sauce, ketchup, vinegar, sugar, and water pan. Slowly add to sauce, stirring until thickened. Serve hot as an appetizer or with rice or noodles."
               ></textarea>
             </div>
             <button type="submit" className="btn btn-primary">
