@@ -1,12 +1,16 @@
 import Header from '../components/Header';
 import { useState } from 'react';
+import useFetch from '../useFetch';
 
 const AddRecipe = () => {
+  const [successMessage, setSuccessMessage] = useState(false);
   const [name, setName] = useState('');
   const [cuisineType, setCuisineType] = useState('');
   const [image, setImage] = useState('');
   const [ingredients, setIngredients] = useState('');
-  const [instruction, setInstruction] = useState('');
+  const [instructions, setInstructions] = useState([]);
+
+  const cuisines = ['Italian', 'Indian', 'Thai', 'Mexican', 'Chinese'];
 
   const formHandler = async (event) => {
     event.preventDefault();
@@ -16,7 +20,7 @@ const AddRecipe = () => {
     //   cuisineType,
     //   image,
     //   ingredients.split(', '),
-    //   instruction.split('. ')
+    //   instructions.split('. ')
     // );
 
     const newData = {
@@ -24,7 +28,7 @@ const AddRecipe = () => {
       cuisineType,
       image,
       ingredients: ingredients.split(', '),
-      instruction: instruction.split('. '),
+      instructions: instructions.split('. '),
     };
 
     try {
@@ -39,17 +43,18 @@ const AddRecipe = () => {
         }
       );
 
-      if (response.ok) {
-        setName('');
-        setCuisineType('');
-        setImage('');
-        setIngredients(''), setInstruction('');
-      } else {
-        throw new Error();
+      if (!response.ok) {
+        throw 'Recipe not added';
       }
 
       const data = await response.json();
-      console.log(data);
+      console.log('Added recipe', data);
+      setSuccessMessage(true);
+
+      setName('');
+      setCuisineType('');
+      setImage('');
+      setIngredients(''), setInstructions('');
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +65,9 @@ const AddRecipe = () => {
       <main className="container py-3">
         <section>
           <h3>Add Recipe</h3>
+          {successMessage && (
+            <p className="alert alert-success">Date added successfully...!!!</p>
+          )}
           <form onSubmit={formHandler}>
             <div className="my-3">
               <label>Name: </label>
@@ -75,13 +83,16 @@ const AddRecipe = () => {
             <div className="my-3">
               <label>Cuisine Type: </label>
               <br />
-              <input
-                type="text"
-                id="cuisineType"
+              <select
                 value={cuisineType}
                 onChange={(event) => setCuisineType(event.target.value)}
                 required
-              />
+              >
+                <option>--Select Cuisine Type--</option>
+                {cuisines.map((cuisine, index) => (
+                  <option key={index}>{cuisine}</option>
+                ))}
+              </select>
             </div>
             <div className="my-3">
               <label>Image Link: : </label>
@@ -113,8 +124,8 @@ const AddRecipe = () => {
                 id="instructions"
                 rows="3"
                 cols="30"
-                value={instruction}
-                onChange={(event) => setInstruction(event.target.value)}
+                value={instructions}
+                onChange={(event) => setInstructions(event.target.value)}
               ></textarea>
             </div>
             <button type="submit" className="btn btn-primary">
